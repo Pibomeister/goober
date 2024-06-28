@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      UserRole
+  rides     Ride[]
+  driver    Driver?
+}
+
+enum UserRole {
+  RIDER
+  DRIVER
+}
+
+model Driver {
+  id             String  @id @default(uuid())
+  user           User    @relation(fields: [userId], references: [id])
+  userId         String  @unique
+  isAvailable    Boolean @default(true)
+  currentRide    Ride?   @relation("CurrentRide")
+  completedRides Ride[]  @relation("CompletedRides")
+}
+
+model Ride {
+  id                String     @id @default(uuid())
+  rider             User       @relation(fields: [riderId], references: [id])
+  riderId           String
+  driver            Driver?    @relation("CurrentRide", fields: [driverId], references: [id])
+  driverId          String?    @unique
+  completedDriver   Driver?    @relation("CompletedRides", fields: [completedDriverId], references: [id])
+  completedDriverId String?
+  status            RideStatus
+  distance          Float
+  duration          Float
+  pickupAddress     String
+  dropoffAddress    String
+  pickupLatitude    Float
+  pickupLongitude   Float
+  dropoffLatitude   Float
+  dropoffLongitude  Float
+  estimatedFare     Float
+  actualFare        Float?
+  rating            Int?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  startTime DateTime?
+  endTime   DateTime?
+}
+
+enum RideStatus {
+  REQUESTED
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
