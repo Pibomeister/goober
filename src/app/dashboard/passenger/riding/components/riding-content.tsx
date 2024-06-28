@@ -1,17 +1,18 @@
 'use client';
 
 import { doc, getFirestore } from '@firebase/firestore';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Trash2Icon } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
-import { riderFetchRide } from '@/actions/ride-actions';
+import { cancelRide, riderFetchRide } from '@/actions/ride-actions';
 import Map from '@/components/map';
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -19,6 +20,7 @@ import app from '@/lib/firebase';
 import { RideWithRider } from '@/models/ride';
 import { RideStatus } from '@prisma/client';
 import { RideTimeline } from './ride-timeline';
+import { Button } from '@/components/ui/button';
 
 const RidingContent = () => {
   const [ride, setRide] = useState<RideWithRider>();
@@ -112,6 +114,16 @@ const RidingContent = () => {
           <CardContent>
             <RideTimeline ride={combinedData ?? {}} />
           </CardContent>
+          <CardFooter>
+            <Button
+              className="w-full"
+              variant="destructive"
+              onClick={() => cancelRide(ride.id)}
+            >
+              <Trash2Icon className="h-4 w-4 mr-2" />
+              Cancel
+            </Button>
+          </CardFooter>
         </Card>
       )}
     </div>
