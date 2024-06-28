@@ -19,6 +19,9 @@ export const navigation = [
   { name: 'Settings', href: '/dashboard/settings', icon: SettingsIcon },
 ];
 
+/**
+ * Passenger user for testing, this wouldn't be needed in a real world application
+ */
 export const passengerUser = {
   id: 'passenger1',
   name: 'John Doe',
@@ -26,6 +29,9 @@ export const passengerUser = {
   imageUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
 };
 
+/**
+ * Driver user for testing, this wouldn't be needed in a real world application
+ */
 export const driverUser = {
   id: 'driver1',
   name: 'Jimmy Page',
@@ -33,12 +39,18 @@ export const driverUser = {
   imageUrl: 'https://randomuser.me/api/portraits/men/18.jpg',
 };
 
+/**
+ * Passenger stats for testing, this wouldn't be needed in a real world application
+ */
 export const passengerStats = [
   { label: 'Total Rides', value: '10' },
   { label: 'Total Trips', value: '20' },
   { label: 'Total Distance', value: '300' },
 ];
 
+/**
+ * Passenger rides for testing, this wouldn't be needed in a real world application
+ */
 export const passengerRides: RideWithDriver[] = [
   {
     id: '1',

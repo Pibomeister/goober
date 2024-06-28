@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Goober Rideshare App
+
+![App Screenshot](./public/images/app-screenshot.png)
 
 ## Introduction
 
