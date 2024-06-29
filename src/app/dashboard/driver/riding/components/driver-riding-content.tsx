@@ -80,6 +80,17 @@ const DriverRidingContent = () => {
     lng: ride?.dropoffLongitude!,
   };
 
+  useEffect(() => {
+    if (combinedData?.status === RideStatus.COMPLETED) {
+      router.push('/dashboard/driver?status=completed');
+      return;
+    }
+    if (combinedData?.status === RideStatus.CANCELLED) {
+      router.push('/dashboard/driver?status=cancelled');
+      return;
+    }
+  }, [combinedData?.status, router]);
+
   const getAction = () => {
     if (combinedData?.status === RideStatus.ACCEPTED) {
       return (

@@ -21,7 +21,8 @@ const DriverContent = () => {
   );
   const searchParams = useSearchParams();
   const status = searchParams.get('status');
-  const showConfetti = status === 'completed';
+  const isCompleted = status === 'completed';
+  const isCancelled = status === 'cancelled';
   const { width, height } = useWindowSize();
 
   const pendingRides = data?.docs.filter(
@@ -29,12 +30,16 @@ const DriverContent = () => {
   );
 
   useEffect(() => {
-    if (showConfetti) {
+    if (isCompleted) {
       setTimeout(() => {
         alert('Ride completed! Congratulations');
       }, 3000);
+    } else if (isCancelled) {
+      setTimeout(() => {
+        alert('Ride cancelled!');
+      }, 3000);
     }
-  }, [showConfetti]);
+  }, [isCompleted, isCancelled]);
 
   return (
     <>
@@ -70,7 +75,7 @@ const DriverContent = () => {
           )}
         </div>
       </main>
-      {showConfetti && (
+      {isCompleted && (
         <Confetti width={width} height={height} recycle={false} />
       )}
     </>
